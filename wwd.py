@@ -33,7 +33,7 @@ for filename in os.listdir(path):
 		jsoncatalogrecord['author'] = author.text
 	for date in root.iter('NumericPubDate'):
 		jsoncatalogrecord['date'] = date.text[:4] + '-' +  date.text[4:6] + '-' + date.text[6:8]
-	for genre in root.iter('Genre'):
+	for genre in root.iter('objecttype'):
 		jsoncatalogrecord['genre'] = genre.text
 	
 	print json.dumps(jsoncatalogrecord)
