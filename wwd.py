@@ -13,6 +13,9 @@ for filename in os.listdir(path):
 	root = tree.getroot()
 	
 	jsoncatalogrecord = {}
+	# This is an a awkward way to iterate over all elements in the XML tree. 
+	# We need to find a way to create a loop over all elements, I think, 
+	# rather than the specific ones listed below.
 	for permalink in root.iter('URLDocView'):
 		jsoncatalogrecord['searchstring'] =  '<a href="' + permalink.text + '">'
 	for title in root.iter('RecordTitle'):
