@@ -1,16 +1,23 @@
 import os
 import json
 import sys
+from os.path import basename
 from xml.etree import cElementTree as ET
 
 path = sys.argv[1]
 
 for filename in os.listdir(path):
 	if not filename.endswith('.xml'): continue
-	fullname = os.path.join(path, filename)
 
+	fullname = os.path.join(path, filename)
 	tree = ET.parse(fullname)
 	root = tree.getroot()
+	
+	with open('input.txt', 'a') as inputtxt:
+		inputtxt.write(os.path.splitext(os.path.basename(filename))[0] + "\t")
+		for fulltext in root.iter('FullText'):
+			inputtxt.write(fulltext.text.strip('\n\t').encode('utf-8'))
+			inputtxt.write("\n")
 	
 	jsoncatalogrecord = {}
 	# This is an a awkward way to iterate over all elements in the XML tree. 
