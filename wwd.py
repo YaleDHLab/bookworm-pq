@@ -1,6 +1,7 @@
 import os
 import json
 import sys
+import re
 from os.path import basename
 from xml.etree import cElementTree as ET
 
