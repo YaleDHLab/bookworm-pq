@@ -14,12 +14,18 @@ for filename in os.listdir(path):
 	root = tree.getroot()
 	
 	with open('input.txt', 'a') as inputtxt:
+		# Start each line with the DocID and a tab.
 		inputtxt.write(os.path.splitext(os.path.basename(filename))[0] + "\t")
 		for fulltext in root.iter('FullText'):
+			# Remove linebreaks and tabs, because every file is on its own line and tabs are used
+			# to separate the docID's from the text itself.
 			fulltext = fulltext.text.strip('\n\t')
+			# Find words that have been hyphenated due to column width and re-connect them.
 			fulltext = re.sub(r'([a-z])- ([a-z])', r'\1\2', fulltext)
+			# Make sure the text is in the correct encoding.
 			fulltext = fulltext.encode('utf-8')
 			inputtxt.write(fulltext)
+			# Start a new line.
 			inputtxt.write("\n")
 	
 	jsoncatalogrecord = {}
