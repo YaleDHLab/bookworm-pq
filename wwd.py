@@ -16,7 +16,10 @@ for filename in os.listdir(path):
 	with open('input.txt', 'a') as inputtxt:
 		inputtxt.write(os.path.splitext(os.path.basename(filename))[0] + "\t")
 		for fulltext in root.iter('FullText'):
-			inputtxt.write(fulltext.text.strip('\n\t').encode('utf-8'))
+			fulltext = fulltext.text.strip('\n\t')
+			fulltext = re.sub(r'([a-z])- ([a-z])', r'\1\2', fulltext)
+			fulltext = fulltext.encode('utf-8')
+			inputtxt.write(fulltext)
 			inputtxt.write("\n")
 	
 	jsoncatalogrecord = {}
